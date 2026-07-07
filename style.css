@@ -98,7 +98,7 @@ form input, form select {
 }
 
 /* Listes */
-#course-list, #material-list, #reminder-list {
+#course-list, #material-list, #reminder-list, #summary-list {
   list-style: none;
   padding: 0;
 }
