@@ -8,31 +8,43 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- En-tête -->
   <header class="app-header">
     <img src="assets/logo.png" alt="Logo SacSmart" class="logo">
     <h1>SacSmart</h1>
   </header>
 
-  <main class="content">
-    <section class="card">
-      <h2>Bienvenue 👋</h2>
-      <p>Prépare ton sac automatiquement selon ton emploi du temps.</p>
-    </section>
+  <!-- Page d'accueil -->
+  <main class="home">
+    <h2 class="welcome">Bienvenue, élève 👋</h2>
 
-    <section class="card">
-      <h2>Fonctionnalités à venir</h2>
+    <div class="streak">
+      🔥 Série : <span id="streak-count">3 jours</span>
+    </div>
+
+    <button class="main-btn" id="prepare-btn">🎒 Préparer mon sac</button>
+
+    <div class="card next-class">
+      <h3>Prochain cours</h3>
+      <p><strong>Mathématiques</strong> à 14h00 - Salle 203</p>
+    </div>
+
+    <div class="card summary">
+      <h3>Résumé du sac</h3>
       <ul>
-        <li>Analyse de ton emploi du temps</li>
-        <li>Suggestions d’objets à emporter</li>
-        <li>Notifications intelligentes</li>
+        <li>Cahier de maths</li>
+        <li>Calculatrice</li>
+        <li>Bouteille d’eau</li>
       </ul>
-    </section>
+    </div>
   </main>
 
+  <!-- Barre de navigation -->
   <nav class="bottom-nav">
-    <button class="nav-btn active">Accueil</button>
-    <button class="nav-btn">Sac</button>
-    <button class="nav-btn">Profil</button>
+    <button class="nav-btn active">🏠 Accueil</button>
+    <button class="nav-btn">📅 Emploi du temps</button>
+    <button class="nav-btn">🎒 Mon sac</button>
+    <button class="nav-btn">⚙️ Paramètres</button>
   </nav>
 
   <script src="app.js"></script>
