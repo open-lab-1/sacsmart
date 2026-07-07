@@ -216,8 +216,13 @@ function renderReminders() {
     const li = document.createElement('li');
     li.className = "reminder-item";
 
+    const freqLabel =
+      reminder.frequency === "jour" ? "Chaque jour" :
+      reminder.frequency === "semaine" ? "Chaque semaine" :
+      "Chaque mois";
+
     li.innerHTML = `
-      <span>${reminder.name} • ${reminder.frequency}${reminder.day ? " • " + reminder.day : ""}</span>
+      <span>${reminder.name} • ${freqLabel}${reminder.day ? " • " + reminder.day : ""}</span>
       <div class="reminder-actions">
         <button class="edit-btn" data-index="${index}">✏️</button>
         <button class="delete-btn" data-index="${index}">❌</button>
@@ -240,6 +245,11 @@ addReminderForm.addEventListener('submit', e => {
     return;
   }
 
+  if (frequency === "semaine" && !day) {
+    alert("Merci de choisir un jour pour la fréquence hebdomadaire.");
+    return;
+  }
+
   reminders.push({ name, frequency, day });
   localStorage.setItem('reminders', JSON.stringify(reminders));
 
@@ -247,4 +257,58 @@ addReminderForm.addEventListener('submit', e => {
   renderReminders();
 });
 
-reminderList.addEventListener
+reminderList.addEventListener('click', e => {
+  if (e.target.classList.contains('delete-btn')) {
+    const index = e.target.dataset.index;
+    reminders.splice(index, 1);
+    localStorage.setItem('reminders', JSON.stringify(reminders));
+    renderReminders();
+  }
+
+  if (e.target.classList.contains('edit-btn')) {
+    const index = e.target.dataset.index;
+    const current = reminders[index];
+    const newName = prompt("Modifier l’objet :", current.name);
+
+    if (newName && newName.trim()) {
+      current.name = newName.trim();
+      localStorage.setItem('reminders', JSON.stringify(reminders));
+      renderReminders();
+    }
+  }
+});
+
+// ---------------------------------------------
+// Bouton "Préparer mon sac"
+// ---------------------------------------------
+const prepareBtn = document.getElementById('prepare-btn');
+const streakCount = document.getElementById('streak-count');
+let streak = 3;
+
+prepareBtn.addEventListener('click', () => {
+  alert('Ton sac est prêt ✅');
+  prepareBtn.style.transform = 'scale(0.95)';
+  setTimeout(() => prepareBtn.style.transform = 'scale(1)', 150);
+  streak++;
+  streakCount.textContent = `${streak} jours`;
+});
+
+// ---------------------------------------------
+// PWA : enregistrement du Service Worker
+// ---------------------------------------------
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(reg => console.log('Service Worker enregistré', reg.scope))
+      .catch(err => console.error('Erreur SW', err));
+  });
+}
+
+// ---------------------------------------------
+// Initialisation
+// ---------------------------------------------
+renderCourses();
+refreshSubjectList();
+updateSummary();
+renderReminders();
+console.log("SacSmart PWA prêt !");
