@@ -8,14 +8,15 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <!-- En-tête -->
   <header class="app-header">
     <img src="assets/logo.png" alt="Logo SacSmart" class="logo">
     <h1>SacSmart</h1>
   </header>
 
-  <!-- Page d'accueil -->
-  <main class="home">
+  <!-- PAGE ACCUEIL -->
+  <main class="page" id="home-page">
     <h2 class="welcome">Bienvenue, élève 👋</h2>
 
     <div class="streak">
@@ -26,7 +27,7 @@
 
     <div class="card next-class">
       <h3>Prochain cours</h3>
-      <p><strong>Mathématiques</strong> à 14h00 - Salle 203</p>
+      <p id="next-class-info">Aucun cours enregistré</p>
     </div>
 
     <div class="card summary">
@@ -39,12 +40,64 @@
     </div>
   </main>
 
-  <!-- Barre de navigation -->
+  <!-- PAGE EMPLOI DU TEMPS -->
+  <main class="page hidden" id="schedule-page">
+    <h2>📅 Emploi du temps</h2>
+
+    <!-- Formulaire d'ajout -->
+    <div class="card">
+      <h3>Ajouter un cours</h3>
+
+      <form id="add-course-form">
+        <label>Jour :</label>
+        <select id="day">
+          <option>Lundi</option>
+          <option>Mardi</option>
+          <option>Mercredi</option>
+          <option>Jeudi</option>
+          <option>Vendredi</option>
+        </select>
+
+        <label>Heure :</label>
+        <input type="time" id="time">
+
+        <label>Semaine :</label>
+        <select id="week">
+          <option>A</option>
+          <option>B</option>
+        </select>
+
+        <label>Matière :</label>
+        <input type="text" id="subject" placeholder="Maths, Histoire...">
+
+        <button class="main-btn" type="submit">➕ Ajouter</button>
+      </form>
+    </div>
+
+    <!-- Liste des cours -->
+    <div class="card">
+      <h3>Cours enregistrés</h3>
+      <ul id="course-list"></ul>
+    </div>
+  </main>
+
+  <!-- Autres pages (placeholder) -->
+  <main class="page hidden" id="bag-page">
+    <h2>🎒 Mon sac</h2>
+    <p>Fonctionnalités à venir…</p>
+  </main>
+
+  <main class="page hidden" id="settings-page">
+    <h2>⚙️ Paramètres</h2>
+    <p>Fonctionnalités à venir…</p>
+  </main>
+
+  <!-- Navigation -->
   <nav class="bottom-nav">
-    <button class="nav-btn active">🏠 Accueil</button>
-    <button class="nav-btn">📅 Emploi du temps</button>
-    <button class="nav-btn">🎒 Mon sac</button>
-    <button class="nav-btn">⚙️ Paramètres</button>
+    <button class="nav-btn active" data-target="home-page">🏠</button>
+    <button class="nav-btn" data-target="schedule-page">📅</button>
+    <button class="nav-btn" data-target="bag-page">🎒</button>
+    <button class="nav-btn" data-target="settings-page">⚙️</button>
   </nav>
 
   <script src="app.js"></script>
