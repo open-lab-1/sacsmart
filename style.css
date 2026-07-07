@@ -1,119 +1,43 @@
-:root {
-  --blue: #2563EB;
-  --green: #22C55E;
-  --white: #FFFFFF;
-  --bg: #F9FAFB;
+/* Pages */
+.page.hidden {
+  display: none;
 }
 
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: var(--bg);
-  color: #111827;
+/* Formulaire emploi du temps */
+form {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  gap: 0.6rem;
 }
 
-/* En-tête */
-.app-header {
-  text-align: center;
-  padding: 1rem;
-  background-color: var(--white);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+form input, form select {
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
 }
 
-.logo {
-  width: 60px;
-  height: 60px;
-  animation: fadeIn 1s ease-in-out;
+/* Liste des cours */
+#course-list {
+  list-style: none;
+  padding: 0;
 }
 
-/* Page d'accueil */
-.home {
-  flex: 1;
-  padding: 1rem;
-  overflow-y: auto;
-  text-align: center;
-}
-
-.welcome {
-  font-size: 1.3rem;
+.course-item {
+  background: var(--white);
+  padding: 0.7rem;
+  border-radius: 10px;
   margin-bottom: 0.5rem;
-  animation: slideDown 0.6s ease-out;
-}
-
-.streak {
-  background-color: var(--white);
-  border-radius: 12px;
-  padding: 0.5rem 1rem;
-  display: inline-block;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  margin-bottom: 1rem;
-}
-
-.main-btn {
-  background-color: var(--blue);
-  color: var(--white);
-  border: none;
-  border-radius: 25px;
-  padding: 0.8rem 1.5rem;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.3s ease;
-}
-
-.main-btn:hover {
-  background-color: var(--green);
-  transform: scale(1.05);
-}
-
-/* Cartes */
-.card {
-  background-color: var(--white);
-  border-radius: 12px;
-  padding: 1rem;
-  margin: 1rem 0;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  text-align: left;
-  animation: fadeInUp 0.8s ease;
-}
-
-/* Barre de navigation */
-.bottom-nav {
   display: flex;
-  justify-content: space-around;
-  background-color: var(--white);
-  border-top: 1px solid #E5E7EB;
-  padding: 0.5rem 0;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.nav-btn {
-  background: none;
+.delete-btn {
+  background: #ef4444;
+  color: white;
   border: none;
-  color: var(--blue);
-  font-size: 1.2rem;
-  padding: 0.5rem;
-  transition: color 0.3s ease;
-}
-
-.nav-btn.active {
-  color: var(--green);
-  font-weight: bold;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideDown {
-  from { transform: translateY(-10px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes fadeInUp {
-  from { transform: translateY(10px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
 }
