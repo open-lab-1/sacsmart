@@ -1,6 +1,6 @@
-// -------------------------------
+// ---------------------------------------------
 // Navigation entre les pages
-// -------------------------------
+// ---------------------------------------------
 const pages = document.querySelectorAll('.page');
 const navButtons = document.querySelectorAll('.nav-btn');
 
@@ -16,15 +16,14 @@ navButtons.forEach(btn => {
   });
 });
 
-// -------------------------------
-// Gestion de l'emploi du temps
-// -------------------------------
+// ---------------------------------------------
+// Emploi du temps
+// ---------------------------------------------
 let courses = JSON.parse(localStorage.getItem('courses')) || [];
 
 const courseList = document.getElementById('course-list');
 const addForm = document.getElementById('add-course-form');
 
-// Affichage des cours
 function renderCourses() {
   courseList.innerHTML = "";
 
@@ -41,9 +40,9 @@ function renderCourses() {
   });
 
   updateNextClass();
+  refreshSubjectList();
 }
 
-// Ajout d'un cours
 addForm.addEventListener('submit', e => {
   e.preventDefault();
 
@@ -64,7 +63,6 @@ addForm.addEventListener('submit', e => {
   renderCourses();
 });
 
-// Suppression d'un cours
 courseList.addEventListener('click', e => {
   if (e.target.classList.contains('delete-btn')) {
     const index = e.target.dataset.index;
@@ -74,9 +72,9 @@ courseList.addEventListener('click', e => {
   }
 });
 
-// -------------------------------
+// ---------------------------------------------
 // Prochain cours (page d'accueil)
-// -------------------------------
+// ---------------------------------------------
 function updateNextClass() {
   const nextClassInfo = document.getElementById('next-class-info');
 
@@ -85,15 +83,128 @@ function updateNextClass() {
     return;
   }
 
-  // Tri par heure
   const sorted = [...courses].sort((a, b) => a.time.localeCompare(b.time));
   const next = sorted[0];
 
   nextClassInfo.textContent = `${next.subject} • ${next.day} à ${next.time}`;
 }
 
-// -------------------------------
+// ---------------------------------------------
+// Matériel par matière
+// ---------------------------------------------
+let materials = JSON.parse(localStorage.getItem('materials')) || {};
+
+const subjectSelect = document.getElementById('material-subject-select');
+const materialList = document.getElementById('material-list');
+const addMaterialForm = document.getElementById('add-material-form');
+const materialInput = document.getElementById('material-input');
+
+function refreshSubjectList() {
+  const uniqueSubjects = [...new Set(courses.map(c => c.subject))];
+
+  subjectSelect.innerHTML = "";
+
+  uniqueSubjects.forEach(sub => {
+    const option = document.createElement('option');
+    option.textContent = sub;
+    subjectSelect.appendChild(option);
+
+    if (!materials[sub]) materials[sub] = [];
+  });
+
+  localStorage.setItem('materials', JSON.stringify(materials));
+  renderMaterials();
+}
+
+function renderMaterials() {
+  const subject = subjectSelect.value;
+  materialList.innerHTML = "";
+
+  if (!subject || !materials[subject]) return;
+
+  materials[subject].forEach((item, index) => {
+    const li = document.createElement('li');
+    li.className = "material-item";
+
+    li.innerHTML = `
+      <span>${item}</span>
+      <div class="material-actions">
+        <button class="edit-btn" data-index="${index}">✏️</button>
+        <button class="delete-btn" data-index="${index}">❌</button>
+      </div>
+    `;
+
+    materialList.appendChild(li);
+  });
+
+  updateSummary();
+}
+
+addMaterialForm.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const subject = subjectSelect.value;
+  const item = materialInput.value.trim();
+
+  if (!item) {
+    alert("Merci d’entrer un objet.");
+    return;
+  }
+
+  materials[subject].push(item);
+  localStorage.setItem('materials', JSON.stringify(materials));
+
+  materialInput.value = "";
+  renderMaterials();
+});
+
+materialList.addEventListener('click', e => {
+  const subject = subjectSelect.value;
+
+  if (e.target.classList.contains('delete-btn')) {
+    const index = e.target.dataset.index;
+    materials[subject].splice(index, 1);
+    localStorage.setItem('materials', JSON.stringify(materials));
+    renderMaterials();
+  }
+
+  if (e.target.classList.contains('edit-btn')) {
+    const index = e.target.dataset.index;
+    const newValue = prompt("Modifier l’objet :", materials[subject][index]);
+
+    if (newValue && newValue.trim()) {
+      materials[subject][index] = newValue.trim();
+      localStorage.setItem('materials', JSON.stringify(materials));
+      renderMaterials();
+    }
+  }
+});
+
+// ---------------------------------------------
+// Résumé du sac (page d'accueil)
+// ---------------------------------------------
+function updateSummary() {
+  const summaryList = document.getElementById('summary-list');
+  summaryList.innerHTML = "";
+
+  const allItems = Object.values(materials).flat();
+
+  if (allItems.length === 0) {
+    summaryList.innerHTML = "<li>Aucun matériel disponible</li>";
+    return;
+  }
+
+  allItems.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = item;
+    summaryList.appendChild(li);
+  });
+}
+
+// ---------------------------------------------
 // Initialisation
-// -------------------------------
+// ---------------------------------------------
 renderCourses();
-console.log("SacSmart prêt avec emploi du temps !");
+refreshSubjectList();
+updateSummary();
+console.log("SacSmart prêt !");
