@@ -32,10 +32,8 @@
 
     <div class="card summary">
       <h3>Résumé du sac</h3>
-      <ul>
-        <li>Cahier de maths</li>
-        <li>Calculatrice</li>
-        <li>Bouteille d’eau</li>
+      <ul id="summary-list">
+        <li>Aucun matériel disponible</li>
       </ul>
     </div>
   </main>
@@ -44,7 +42,6 @@
   <main class="page hidden" id="schedule-page">
     <h2>📅 Emploi du temps</h2>
 
-    <!-- Formulaire d'ajout -->
     <div class="card">
       <h3>Ajouter un cours</h3>
 
@@ -74,19 +71,74 @@
       </form>
     </div>
 
-    <!-- Liste des cours -->
     <div class="card">
       <h3>Cours enregistrés</h3>
       <ul id="course-list"></ul>
     </div>
   </main>
 
-  <!-- Autres pages (placeholder) -->
+  <!-- PAGE MATÉRIEL -->
   <main class="page hidden" id="bag-page">
-    <h2>🎒 Mon sac</h2>
-    <p>Fonctionnalités à venir…</p>
+    <h2>🎒 Matériel par matière</h2>
+
+    <div class="card">
+      <h3>Choisir une matière</h3>
+      <select id="material-subject-select"></select>
+    </div>
+
+    <div class="card">
+      <h3>Matériel nécessaire</h3>
+      <ul id="material-list"></ul>
+    </div>
+
+    <div class="card">
+      <h3>Ajouter un objet</h3>
+      <form id="add-material-form">
+        <input type="text" id="material-input" placeholder="Ex : calculatrice">
+        <button class="main-btn" type="submit">➕ Ajouter</button>
+      </form>
+    </div>
   </main>
 
+  <!-- PAGE RAPPELS -->
+  <main class="page hidden" id="reminder-page">
+    <h2>⏰ Rappels récurrents</h2>
+
+    <div class="card">
+      <h3>Ajouter un rappel</h3>
+
+      <form id="add-reminder-form">
+        <label>Objet :</label>
+        <input type="text" id="reminder-name" placeholder="Ex : feuilles simples">
+
+        <label>Fréquence :</label>
+        <select id="reminder-frequency">
+          <option value="jour">Chaque jour</option>
+          <option value="semaine">Chaque semaine</option>
+          <option value="mois">Chaque mois</option>
+        </select>
+
+        <label>Jour (si hebdomadaire) :</label>
+        <select id="reminder-day">
+          <option value="">—</option>
+          <option>Lundi</option>
+          <option>Mardi</option>
+          <option>Mercredi</option>
+          <option>Jeudi</option>
+          <option>Vendredi</option>
+        </select>
+
+        <button class="main-btn" type="submit">➕ Ajouter</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3>Rappels enregistrés</h3>
+      <ul id="reminder-list"></ul>
+    </div>
+  </main>
+
+  <!-- PAGE PARAMÈTRES -->
   <main class="page hidden" id="settings-page">
     <h2>⚙️ Paramètres</h2>
     <p>Fonctionnalités à venir…</p>
@@ -97,6 +149,7 @@
     <button class="nav-btn active" data-target="home-page">🏠</button>
     <button class="nav-btn" data-target="schedule-page">📅</button>
     <button class="nav-btn" data-target="bag-page">🎒</button>
+    <button class="nav-btn" data-target="reminder-page">⏰</button>
     <button class="nav-btn" data-target="settings-page">⚙️</button>
   </nav>
 
