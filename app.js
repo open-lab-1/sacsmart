@@ -202,9 +202,49 @@ function updateSummary() {
 }
 
 // ---------------------------------------------
-// Initialisation
+// Rappels récurrents
 // ---------------------------------------------
-renderCourses();
-refreshSubjectList();
-updateSummary();
-console.log("SacSmart prêt !");
+let reminders = JSON.parse(localStorage.getItem('reminders')) || [];
+
+const reminderList = document.getElementById('reminder-list');
+const addReminderForm = document.getElementById('add-reminder-form');
+
+function renderReminders() {
+  reminderList.innerHTML = "";
+
+  reminders.forEach((reminder, index) => {
+    const li = document.createElement('li');
+    li.className = "reminder-item";
+
+    li.innerHTML = `
+      <span>${reminder.name} • ${reminder.frequency}${reminder.day ? " • " + reminder.day : ""}</span>
+      <div class="reminder-actions">
+        <button class="edit-btn" data-index="${index}">✏️</button>
+        <button class="delete-btn" data-index="${index}">❌</button>
+      </div>
+    `;
+
+    reminderList.appendChild(li);
+  });
+}
+
+addReminderForm.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const name = document.getElementById('reminder-name').value.trim();
+  const frequency = document.getElementById('reminder-frequency').value;
+  const day = document.getElementById('reminder-day').value;
+
+  if (!name) {
+    alert("Merci d’entrer un objet.");
+    return;
+  }
+
+  reminders.push({ name, frequency, day });
+  localStorage.setItem('reminders', JSON.stringify(reminders));
+
+  addReminderForm.reset();
+  renderReminders();
+});
+
+reminderList.addEventListener
