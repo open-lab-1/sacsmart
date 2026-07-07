@@ -15,6 +15,7 @@ body {
   height: 100vh;
 }
 
+/* En-tête */
 .app-header {
   text-align: center;
   padding: 1rem;
@@ -25,22 +26,60 @@ body {
 .logo {
   width: 60px;
   height: 60px;
+  animation: fadeIn 1s ease-in-out;
 }
 
-.content {
+/* Page d'accueil */
+.home {
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
+  text-align: center;
 }
 
+.welcome {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  animation: slideDown 0.6s ease-out;
+}
+
+.streak {
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  display: inline-block;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-bottom: 1rem;
+}
+
+.main-btn {
+  background-color: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: 25px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.main-btn:hover {
+  background-color: var(--green);
+  transform: scale(1.05);
+}
+
+/* Cartes */
 .card {
   background-color: var(--white);
   border-radius: 12px;
   padding: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  text-align: left;
+  animation: fadeInUp 0.8s ease;
 }
 
+/* Barre de navigation */
 .bottom-nav {
   display: flex;
   justify-content: space-around;
@@ -53,11 +92,28 @@ body {
   background: none;
   border: none;
   color: var(--blue);
-  font-size: 1rem;
+  font-size: 1.2rem;
   padding: 0.5rem;
+  transition: color 0.3s ease;
 }
 
 .nav-btn.active {
   color: var(--green);
   font-weight: bold;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
